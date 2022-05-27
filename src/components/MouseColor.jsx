@@ -9,6 +9,7 @@ function MouseColor() {
     };
 
     const [style, setStyle] = useState(style2);
+    const [stopColor, setStopColor] = useState(true);
 
     let capturarRaton = (event) => {        
         setStyle(({
@@ -19,24 +20,34 @@ function MouseColor() {
     }
 
     let capturaEntradaRaton = (event) => {
-        let rojo = ramdomValue();
-        let verde = ramdomValue();
-        let azul = ramdomValue();        
-        setStyle(({
-            backgroundColor: "rgb(" + rojo + ", " + verde + "," + azul + ")",
-            height: '255px',
-            width: '255px'
-        }));
+        console.log(stopColor);
+        if (stopColor) {
+            let rojo = ramdomValue();
+            let verde = ramdomValue();
+            let azul = ramdomValue();        
+            setStyle(({
+                backgroundColor: "rgb(" + rojo + ", " + verde + "," + azul + ")",
+                height: '255px',
+                width: '255px'
+            }));
+        }
     }
     let capturaSalidaRaton = (event) => {
-        let rojo = ramdomValue();
-        let verde = ramdomValue();
-        let azul = ramdomValue();
-        setStyle(({
-            backgroundColor: "rgb(" + rojo + ", " + verde + "," + azul + ")",
-            height: '255px',
-            width: '255px'
-        }));
+        if (stopColor) {
+            let rojo = ramdomValue();
+            let verde = ramdomValue();
+            let azul = ramdomValue();
+            setStyle(({
+                backgroundColor: "rgb(" + rojo + ", " + verde + "," + azul + ")",
+                height: '255px',
+                width: '255px'
+            }));
+        }
+    }
+    let dobleClick = (event) => {
+        setStopColor((prevStopColor, props) => (
+           !prevStopColor
+        ));
     }
 
     function ramdomValue() {        
@@ -47,8 +58,10 @@ function MouseColor() {
         <div style={style}
         onMouseMove={capturarRaton}
         onMouseEnter={capturaEntradaRaton} 
-        onMouseLeave={capturaSalidaRaton}>
-            Prueba de cambio de color segun movamos el raton por el fondo coloreado
+        onMouseLeave={capturaSalidaRaton}
+        onDoubleClick={dobleClick}>
+            Prueba de cambio de color segun movamos el raton por el fondo coloreado.<br/>
+            Si hacemos dobleClick activamos/desactivamos la generacion aleatoria de colores
         </div>
     )
 }
